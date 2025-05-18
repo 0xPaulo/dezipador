@@ -1,0 +1,47 @@
+# 1. No VSCode, abra o terminal e crie uma pasta para seu projeto
+mkdir meu_projeto
+cd meu_projeto
+
+# 2. Crie um ambiente virtual
+python -m venv env
+
+# 3. Ative o ambiente virtual
+# No Windows:
+BASH
+#source env/Scripts/activate
+CMD
+env\Scripts\activate
+
+# Fechar env
+deactivate
+
+
+
+
+# 4. Instale as bibliotecas necessárias para seu projeto
+pip install nome_da_biblioteca
+
+# 5. Depois de instalar todas as bibliotecas, salve-as em um arquivo requirements.txt
+pip freeze > requirements.txt
+
+# 6. Crie seu código Python (main.py)
+
+# 7. Para criar um executável do seu projeto
+pip install pyinstaller
+pyinstaller --onefile main.py
+pyinstaller --noconsole --onefile codigo.py
+
+
+
+
+/////////////////////////////
+Você quer seguir com o zipfile do Python puro ou prefere continuar com o pyunpack + 7-Zip?
+
+$ pyinstaller --add-data "icon.ico;." --onefile --windowed --icon=icon.ico --version-file=version.txt codigo4.py
+pyinstaller --onefile --windowed --icon=icon.ico --version-file=version.txt seu_script.py
+
+
+
+
+
+
