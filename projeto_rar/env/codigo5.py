@@ -9,6 +9,7 @@ import zipfile
 import json
 import shutil
 import sys
+from pathlib import Path
 
 
 def resource_path(rel_path):
@@ -22,8 +23,14 @@ def resource_path(rel_path):
 # ==========================
 # CONFIGURAÇÕES E CONSTANTES
 # ==========================
-CAMINHO_JSON = "caminhos_zips.json"
-CAMINHO_CORES = "cores_tema.json"
+
+# Caminho para a pasta "inuconfig" dentro de "Documentos"
+PASTA_CONFIG = Path.home() / "Documents" / "InuSoftware" / "InuZiper" / "InuConfig"
+PASTA_CONFIG.mkdir(parents=True, exist_ok=True)  # Cria a pasta se não existir
+
+# Atualiza os caminhos dos arquivos JSON
+CAMINHO_JSON = PASTA_CONFIG / "caminhos_zips.json"
+CAMINHO_CORES = PASTA_CONFIG / "cores_tema.json"
 
 arquivos_zip = {1: None, 2: None, 3: None}
 labels = {}
@@ -184,14 +191,14 @@ def criar_interface():
     ctk.set_appearance_mode("dark")
     global janela, frame_slots, frame_config, tabs
     janela = ctk.CTk()
-    janela.title("gerenciador de versao")
+    janela.title("InuZiper")
     janela.geometry("600x600")
     janela.resizable(False, False)
 
     # Adicionar suporte para ícone na barra de tarefas
     if os.name == 'nt':
         import ctypes
-        app_id = 'seu_app.gerenciador_de_versao'
+        app_id = 'seu_app.InuZiper'
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(app_id)
 
     try:

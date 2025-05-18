@@ -17,7 +17,7 @@ VSVersionInfo(
           [
             StringStruct('CompanyName', 'InuSoftware'),
             StringStruct('FileDescription', 'Gerenciador de versão de arquivos zip'),
-            StringStruct('FileVersion', '0.4.0.0'),
+            StringStruct('FileVersion', '0.5.0.0'),
             StringStruct('ProductName', 'Zip Manager'),
             StringStruct('ProductVersion', '0.4'),
             StringStruct('InternalName', 'GerenciadorZip'),
