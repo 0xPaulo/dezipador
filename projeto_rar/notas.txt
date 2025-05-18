@@ -1,0 +1,37 @@
+
+pip install -r requirements.txt
+
+# 2. Crie um ambiente virtual
+py -m venv env
+
+# 3. Ative o ambiente virtual
+source env/Scripts/activate
+
+# Fechar env
+deactivate
+
+# 5. Depois de instalar todas as bibliotecas, salve-as em um arquivo requirements.txt
+pip freeze > requirements.txt
+
+# 7. Para criar um executável do seu projeto
+pip install pyinstaller
+py -m pip install --force-reinstall pyinstaller
+
+
+pyinstaller --add-data "icon.ico;." --onefile --windowed --icon=icon.ico --version-file=version.txt codigo5.py
+
+
+
+
+
+
+Se preferir, posso montar um script .bat para empacotar seu app com dois cliques. Deseja isso?
+
+
+
+
+
+
+
+
+
