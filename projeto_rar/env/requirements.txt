@@ -1,4 +1,5 @@
 altgraph==0.17.4
+CTkColorPicker==0.9.0
 customtkinter==5.2.2
 darkdetect==0.8.0
 EasyProcess==1.1
@@ -7,6 +8,7 @@ importlib-metadata==8.5.0
 packaging==25.0
 patool==1.12
 pefile==2023.2.7
+pillow==10.4.0
 pyinstaller==6.13.0
 pyinstaller-hooks-contrib==2025.4
 pyunpack==0.3
