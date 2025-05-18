@@ -3040,7 +3040,7 @@
  [],
  False,
  False,
- 1747580512,
+ 1747580901,
  [('runw.exe',
    'c:\\users\\0xpaulo\\code\\py\\inuziper\\projeto_rar\\env\\lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\runw.exe',
    'EXECUTABLE')],
