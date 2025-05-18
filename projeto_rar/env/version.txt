@@ -16,14 +16,11 @@ VSVersionInfo(
         StringTable(
           '040904b0',
           [
-            StringStruct('CompanyName', 'InuSofware'),       # <<<<<< FORNECEDOR
-            StringStruct('FileDescription', 'Dezipador de zip'),
+            StringStruct('CompanyName', 'InuSofware'),
+            StringStruct('FileDescription', 'Gerenciador de versao'),
             StringStruct('FileVersion', '1.0.0.0'),
-            StringStruct('InternalName', 'dezipador'),
+            StringStruct('InternalName', 'Gerenciador Zip'),
             StringStruct('LegalCopyright', 'Copyright © 2025'),
-            StringStruct('OriginalFilename', 'inudezipador.exe'),
-            StringStruct('ProductName', 'Inudezipador'),
-            StringStruct('ProductVersion', '1.0.0.0')
           ]
         )
       ]
