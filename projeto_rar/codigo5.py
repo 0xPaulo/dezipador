@@ -87,13 +87,16 @@ def salvar_caminhos():
         json.dump(dados_para_salvar, f)
 
 def escolher_arquivo(slot):
-    caminho = filedialog.askopenfilename(filetypes=[("Arquivos ZIP", "*.zip")])
+    caminho = filedialog.askopenfilename(
+        filetypes=[("Arquivos ZIP e RAR", "*.zip *.rar"), ("Arquivos ZIP", "*.zip"), ("Arquivos RAR", "*.rar")]
+    )
     if caminho:
         arquivos_zip[slot] = caminho
         nome_arquivo = os.path.basename(caminho)
         labels[slot].configure(text=nome_arquivo)
-        botao_deszipar[slot].configure(text=f"Deszipar {nome_arquivo}")  # <-- Atualiza texto do botão aqui
+        botao_deszipar[slot].configure(text=f"Deszipar {nome_arquivo}")  # Atualiza texto do botão aqui
         salvar_caminhos()
+
 
 def descompactar(slot):
     """Descompacta o arquivo ZIP selecionado no slot."""

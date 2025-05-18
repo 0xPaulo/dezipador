@@ -6,6 +6,13 @@ py -m venv env
 
 # 3. Ative o ambiente virtual
 source env/Scripts/activate
+source projeto_rar/env/Scripts/activate
+py -m ensurepip --upgrade
+
+py -m pip install --upgrade pip
+py -m pip install pyinstaller
+
+
 
 # Fechar env
 deactivate
@@ -20,7 +27,7 @@ py -m pip install --force-reinstall pyinstaller
 
 pyinstaller --add-data "icon.ico;." --onefile --windowed --icon=icon.ico --version-file=version.txt codigo5.py
 
-
+pyinstaller codigo5.py
 
 
 
