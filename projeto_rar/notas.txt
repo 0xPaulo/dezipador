@@ -16,8 +16,7 @@ pip freeze > requirements.txt
 
 pyinstaller --add-data "icon.ico;." --onefile --windowed --icon=icon.ico --version-file=version.txt codigo5.py
 
-Se preferir, posso montar um script .bat para empacotar seu app com dois cliques. Deseja isso?
-
+criar novos temas
 
 
 

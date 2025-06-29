@@ -10,6 +10,7 @@ import json
 import shutil
 import sys
 from pathlib import Path
+import win32api  # Adicionado para obter versão de executáveis
 
 
 def resource_path(rel_path):
@@ -31,6 +32,7 @@ PASTA_CONFIG.mkdir(parents=True, exist_ok=True)  # Cria a pasta se não existir
 # Atualiza os caminhos dos arquivos JSON
 CAMINHO_JSON = PASTA_CONFIG / "caminhos_zips.json"
 CAMINHO_CORES = PASTA_CONFIG / "cores_tema.json"
+CAMINHO_VERSAO = PASTA_CONFIG / "ultima_versao.json"  # Novo arquivo para salvar a última versão
 
 arquivos_zip = {1: None, 2: None, 3: None}
 labels = {}
@@ -98,8 +100,37 @@ def escolher_arquivo(slot):
         salvar_caminhos()
 
 
+def obter_versao_arquivo(caminho_arquivo):
+    """Obtém a versão de um arquivo executável (Windows)"""
+    try:
+        info = win32api.GetFileVersionInfo(caminho_arquivo, '\\')
+        version = "%d.%d.%d.%d" % (
+            info['FileVersionMS'] // 65536,
+            info['FileVersionMS'] % 65536,
+            info['FileVersionLS'] // 65536,
+            info['FileVersionLS'] % 65536
+        )
+        return version
+    except:
+        return None
+
+def salvar_ultima_versao(arquivo, versao):
+    """Salva a última versão descompactada no arquivo JSON"""
+    with open(CAMINHO_VERSAO, "w") as f:
+        json.dump({"arquivo": arquivo, "versao": versao}, f)
+
+def carregar_ultima_versao():
+    """Carrega a última versão descompactada do arquivo JSON"""
+    if os.path.exists(CAMINHO_VERSAO):
+        try:
+            with open(CAMINHO_VERSAO, "r") as f:
+                return json.load(f)
+        except:
+            return {"arquivo": "Nenhum", "versao": "N/A"}
+    return {"arquivo": "Nenhum", "versao": "N/A"}
+
 def descompactar(slot):
-    """Descompacta o arquivo ZIP selecionado no slot."""
+    """Descompacta o arquivo ZIP selecionado no slot e mostra a versão do R1_ERP.exe extraído."""
     caminho = arquivos_zip.get(slot)
     if not caminho or not os.path.exists(caminho):
         print(f"Slot {slot}: Arquivo não encontrado ou não selecionado.")
@@ -107,6 +138,9 @@ def descompactar(slot):
 
     try:
         pasta_destino = os.path.dirname(caminho)
+        nome_exe = "R1_ERP.exe"
+        caminho_exe = os.path.join(pasta_destino, nome_exe)
+
         # Limpa arquivos/pastas que já existem na pasta do ZIP
         with zipfile.ZipFile(caminho, 'r') as zip_ref:
             for nome_arquivo in zip_ref.namelist():
@@ -117,8 +151,21 @@ def descompactar(slot):
                     shutil.rmtree(destino)
         # Extrai para a mesma pasta do ZIP
         Archive(caminho).extractall(pasta_destino)
+
+        # Agora pegar a versão do R1_ERP.exe extraído
+        if os.path.exists(caminho_exe):
+            versao = obter_versao_arquivo(caminho_exe)
+            if versao:
+                label_versao.configure(text=f"Versão descompactada: {nome_exe} - v{versao}")
+                salvar_ultima_versao(nome_exe, versao)
+            else:
+                label_versao.configure(text="Não foi possível identificar a versão do R1_ERP.exe extraído")
+        else:
+            label_versao.configure(text="R1_ERP.exe não encontrado após extração")
+
     except Exception as e:
         print(f"Slot {slot}: Erro ao extrair {caminho}: {e}")
+        label_versao.configure(text=f"Erro: {str(e)}")
 
 # ==========================
 # FUNÇÕES DE CORES E CUSTOMIZAÇÃO
@@ -166,6 +213,8 @@ def atualizar_cores():
                 hover_color=cores["hover_btn_sel"],
                 text_color=cores["texto_btn_sel"],
                 border_color=cores["borda_btn_sel"])
+    if 'label_versao' in globals():
+        label_versao.configure(text_color=cores["texto_label"])
 
 def criar_seletor_cor(nome_cor, texto, linha):
     """Cria um seletor de cor para personalizar as cores da interface."""
@@ -192,10 +241,10 @@ def criar_seletor_cor(nome_cor, texto, linha):
 # ==========================
 def criar_interface():
     ctk.set_appearance_mode("dark")
-    global janela, frame_slots, frame_config, tabs
+    global janela, frame_slots, frame_config, tabs, label_versao
     janela = ctk.CTk()
     janela.title("InuZiper")
-    janela.geometry("600x600")
+    janela.geometry("600x650")  # Aumentei a altura para acomodar a nova label
     janela.resizable(False, False)
 
     # Adicionar suporte para ícone na barra de tarefas
@@ -261,6 +310,14 @@ def criar_interface():
                                    width=250,
                                    command=lambda i=i: descompactar(i))
         botao_deszipar[i].pack(pady=(0, 15))
+
+    # Adicionando label para mostrar a última versão descompactada
+    ultima_versao = carregar_ultima_versao()
+    label_versao = ctk.CTkLabel(frame_slots,
+                                text=f"Última versão descompactada: {ultima_versao['arquivo']} - v{ultima_versao['versao']}",
+                                font=fonte_cyber,
+                                text_color=cores["texto_label"])
+    label_versao.pack(pady=(10, 20))
 
     # Criação dos seletores de cores
     nomes_cores = {
