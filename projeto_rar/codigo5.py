@@ -12,7 +12,6 @@ import sys
 from pathlib import Path
 import win32api  # Adicionado para obter versão de executáveis
 
-
 def resource_path(rel_path):
     """Funciona para o .py e também para o .exe"""
     try:
@@ -20,6 +19,40 @@ def resource_path(rel_path):
     except Exception:
         base_path = os.path.abspath(".")  # Quando executado diretamente pelo Python
     return os.path.join(base_path, rel_path)
+
+# NOVO: Caminho para temas
+CAMINHO_TEMAS = resource_path("temas/temas.json")
+CAMINHO_TEMA_ATUAL = Path.home() / "Documents" / "InuSoftware" / "InuZiper" / "InuConfig" / "tema_atual.json"
+
+def carregar_temas():
+    """Carrega todos os temas disponíveis do arquivo temas.json."""
+    with open(CAMINHO_TEMAS, "r", encoding="utf-8") as f:
+        return json.load(f)["temas"]
+
+def salvar_tema_atual(nome_tema):
+    with open(CAMINHO_TEMA_ATUAL, "w", encoding="utf-8") as f:
+        json.dump({"tema": nome_tema}, f)
+
+def carregar_tema_atual():
+    if os.path.exists(CAMINHO_TEMA_ATUAL):
+        try:
+            with open(CAMINHO_TEMA_ATUAL, "r", encoding="utf-8") as f:
+                return json.load(f).get("tema")
+        except:
+            return None
+    return None
+
+def aplicar_tema(nome_tema):
+    """Aplica o tema selecionado ao app."""
+    temas = carregar_temas()
+    if nome_tema in temas:
+        tema = temas[nome_tema]["cores"]
+        cores.update(tema)
+        atualizar_cores()
+        salvar_cores()
+        salvar_tema_atual(nome_tema)
+        # Atualiza a seleção visual dos temas
+        atualizar_selecao_tema(nome_tema)
 
 # ==========================
 # CONFIGURAÇÕES E CONSTANTES
@@ -216,6 +249,24 @@ def atualizar_cores():
     if 'label_versao' in globals():
         label_versao.configure(text_color=cores["texto_label"])
 
+    # Atualizar frame de temas se existir
+    if 'frame_temas' in globals():
+        frame_temas.configure(fg_color=cores["fundo_frame"], border_color=cores["borda_frame"])
+    if 'label_temas' in globals():
+        label_temas.configure(text_color=cores["texto_label"])
+
+# NOVA FUNÇÃO: Atualizar seleção visual do tema
+def atualizar_selecao_tema(tema_selecionado):
+    """Atualiza a seleção visual dos botões de tema."""
+    if 'botoes_tema' in globals():
+        for nome_tema, botao in botoes_tema.items():
+            if nome_tema == tema_selecionado:
+                # Tema selecionado - borda mais grossa e colorida
+                botao.configure(border_width=4, border_color=cores["borda_frame"])
+            else:
+                # Tema não selecionado - borda fina
+                botao.configure(border_width=2, border_color="#666666")
+
 def criar_seletor_cor(nome_cor, texto, linha):
     """Cria um seletor de cor para personalizar as cores da interface."""
     def alterar_cor():
@@ -241,10 +292,10 @@ def criar_seletor_cor(nome_cor, texto, linha):
 # ==========================
 def criar_interface():
     ctk.set_appearance_mode("dark")
-    global janela, frame_slots, frame_config, tabs, label_versao
+    global janela, frame_slots, frame_config, tabs, label_versao, frame_temas, label_temas, botoes_tema
     janela = ctk.CTk()
     janela.title("InuZiper")
-    janela.geometry("600x650")  # Aumentei a altura para acomodar a nova label
+    janela.geometry("600x650")
     janela.resizable(False, False)
 
     # Adicionar suporte para ícone na barra de tarefas
@@ -261,6 +312,10 @@ def criar_interface():
 
     carregar_cores()
 
+    # NOVO: Carregar temas e tema atual
+    temas_disponiveis = carregar_temas()
+    tema_salvo = carregar_tema_atual()
+
     tabs = ctk.CTkTabview(janela)
     tabs.pack(padx=20, pady=20, fill="both", expand=True)
     tabs.add("Slots")
@@ -271,9 +326,17 @@ def criar_interface():
     frame_slots = ctk.CTkFrame(tabs.tab("Slots"), corner_radius=10, border_width=3, border_color=cores["borda_frame"], fg_color=cores["fundo_frame"])
     frame_slots.pack(expand=True, fill="both", padx=20, pady=20)
 
-    # Frame para as configurações
+    # Frame para as configurações (agora rolável)
     global frame_config
-    frame_config = ctk.CTkFrame(tabs.tab("Configurações"), corner_radius=10, border_width=3, border_color=cores["borda_frame"], fg_color=cores["fundo_frame"])
+    frame_config = ctk.CTkScrollableFrame(
+        tabs.tab("Configurações"),
+        corner_radius=10,
+        border_width=3,
+        border_color=cores["borda_frame"],
+        fg_color=cores["fundo_frame"],
+        width=560,  # ajuste conforme necessário
+        height=500  # ajuste conforme necessário
+    )
     frame_config.pack(expand=True, fill="both", padx=20, pady=20)
 
     # Criação dos elementos nos slots
@@ -319,7 +382,71 @@ def criar_interface():
                                 text_color=cores["texto_label"])
     label_versao.pack(pady=(10, 20))
 
-    # Criação dos seletores de cores
+    # NOVO: Seletor visual de temas com quadradinhos coloridos
+    label_temas = ctk.CTkLabel(
+        frame_config,
+        text="🎨 Selecionar Tema:",
+        font=fonte_cyber,
+        text_color=cores["texto_label"]
+    )
+    label_temas.grid(row=0, column=0, columnspan=2, padx=10, pady=(20, 10), sticky="w")
+
+    # Frame para os botões de tema
+    frame_temas = ctk.CTkFrame(
+        frame_config, 
+        fg_color=cores["fundo_frame"],
+        border_color=cores["borda_frame"],
+        border_width=2,
+        corner_radius=10
+    )
+    frame_temas.grid(row=1, column=0, columnspan=2, padx=10, pady=(0, 20), sticky="ew")
+
+    # Criar botões para cada tema (agora como quadradinhos pequenos)
+    botoes_tema = {}
+    row = 0
+    col = 0
+    max_cols = 6  # Mais colunas para caber mais quadradinhos na linha
+
+    for nome_tema, dados_tema in temas_disponiveis.items():
+        cores_tema = dados_tema["cores"]
+
+        def criar_comando_tema(tema):
+            return lambda: aplicar_tema(tema)
+
+        botao_tema = ctk.CTkButton(
+            frame_temas,
+            text="",  # Sem texto!
+            width= 32,
+            height=32,
+            fg_color=cores_tema["fundo_btn_sel"],
+            hover_color=cores_tema["hover_btn_sel"],
+            border_width=2,
+            border_color="#666666",
+            corner_radius=6,
+            command=criar_comando_tema(nome_tema)
+        )
+
+        botao_tema.grid(row=row, column=col, padx=8, pady=8)
+        botoes_tema[nome_tema] = botao_tema
+
+        col += 1
+        if col >= max_cols:
+            col = 0
+            row += 1
+
+    # Configurar grid do frame de temas para centralizar
+    for i in range(max_cols):
+        frame_temas.grid_columnconfigure(i, weight=1)
+
+    # Configure o grid principal
+    frame_config.grid_columnconfigure(0, weight=1)
+    frame_config.grid_columnconfigure(1, weight=1)
+
+    # Marcar tema atual como selecionado
+    if tema_salvo:
+        atualizar_selecao_tema(tema_salvo)
+
+    # Criação dos seletores de cores (começando da linha 2 agora)
     nomes_cores = {
         "fundo_janela": "Fundo da Janela",
         "fundo_frame": "Fundo dos Frames",
@@ -335,7 +462,7 @@ def criar_interface():
         "borda_btn_deszip": "Borda dos Botões Deszipar"
     }
     for idx, (chave, texto) in enumerate(nomes_cores.items()):
-        criar_seletor_cor(chave, texto, idx)
+        criar_seletor_cor(chave, texto, idx+2)  # +2 para começar na linha 2
 
 # ==========================
 # INICIALIZAÇÃO DA INTERFACE

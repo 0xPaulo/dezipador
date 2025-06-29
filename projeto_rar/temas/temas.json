@@ -1,0 +1,200 @@
+{
+  "temas": {
+    "dark_silver": {
+      "nome": "Dark Silver",
+      "tipo": "escuro",
+      "cores": {
+        "fundo_janela": "#1A1A1A",
+        "fundo_frame": "#252525",
+        "borda_frame": "#404040",
+        "texto_label": "#E5E5E5",
+        "fundo_btn_sel": "#4A4A4A",
+        "hover_btn_sel": "#5E5E5E",
+        "texto_btn_sel": "#FFFFFF",
+        "borda_btn_sel": "#707070",
+        "fundo_btn_deszip": "#555555",
+        "hover_btn_deszip": "#6D6D6D",
+        "texto_btn_deszip": "#F5F5F5",
+        "borda_btn_deszip": "#808080"
+      },
+      "descricao": "Tema escuro elegante em tons de cinza e prata"
+    },
+    "midnight_blue": {
+      "nome": "Midnight Blue",
+      "tipo": "escuro",
+      "cores": {
+        "fundo_janela": "#0F0F1A",
+        "fundo_frame": "#1A1A2E",
+        "borda_frame": "#2D2D4D",
+        "texto_label": "#E0E0FF",
+        "fundo_btn_sel": "#3A3A6E",
+        "hover_btn_sel": "#4A4A8E",
+        "texto_btn_sel": "#FFFFFF",
+        "borda_btn_sel": "#5D5D9D",
+        "fundo_btn_deszip": "#45458F",
+        "hover_btn_deszip": "#5555AF",
+        "texto_btn_deszip": "#F0F0FF",
+        "borda_btn_deszip": "#6A6ABF"
+      },
+      "descricao": "Tema noturno com tons de azul profundo"
+    },
+    "light_modern": {
+      "nome": "Light Modern",
+      "tipo": "claro",
+      "cores": {
+        "fundo_janela": "#F5F5F5",
+        "fundo_frame": "#FFFFFF",
+        "borda_frame": "#E0E0E0",
+        "texto_label": "#333333",
+        "fundo_btn_sel": "#E0E0E0",
+        "hover_btn_sel": "#D0D0D0",
+        "texto_btn_sel": "#222222",
+        "borda_btn_sel": "#C0C0C0",
+        "fundo_btn_deszip": "#DADADA",
+        "hover_btn_deszip": "#CACACA",
+        "texto_btn_deszip": "#111111",
+        "borda_btn_deszip": "#B0B0B0"
+      },
+      "descricao": "Tema claro moderno e minimalista"
+    },
+    "green_matrix": {
+      "nome": "Green Matrix",
+      "tipo": "escuro",
+      "cores": {
+        "fundo_janela": "#0A0A0A",
+        "fundo_frame": "#121212",
+        "borda_frame": "#003300",
+        "texto_label": "#00CC00",
+        "fundo_btn_sel": "#002200",
+        "hover_btn_sel": "#004400",
+        "texto_btn_sel": "#00FF00",
+        "borda_btn_sel": "#005500",
+        "fundo_btn_deszip": "#003300",
+        "hover_btn_deszip": "#005500",
+        "texto_btn_deszip": "#AAFFAA",
+        "borda_btn_deszip": "#007700"
+      },
+      "descricao": "Tema inspirado no efeito Matrix (verde sobre preto)"
+    },
+    "warm_amber": {
+      "nome": "Warm Amber",
+      "tipo": "escuro",
+      "cores": {
+        "fundo_janela": "#1E1300",
+        "fundo_frame": "#2A1E00",
+        "borda_frame": "#4A3C10",
+        "texto_label": "#FFE0A0",
+        "fundo_btn_sel": "#5A4A20",
+        "hover_btn_sel": "#7A6A30",
+        "texto_btn_sel": "#FFE8C0",
+        "borda_btn_sel": "#8A7A40",
+        "fundo_btn_deszip": "#6A5A30",
+        "hover_btn_deszip": "#8A7A40",
+        "texto_btn_deszip": "#FFF0D0",
+        "borda_btn_deszip": "#9A8A50"
+      },
+      "descricao": "Tema escuro com tons âmbar aconchegantes"
+    },
+    "sunset_orange": {
+      "nome": "Sunset Orange",
+      "tipo": "claro",
+      "cores": {
+        "fundo_janela": "#FFF3E0",
+        "fundo_frame": "#FFE0B2",
+        "borda_frame": "#FF9800",
+        "texto_label": "#BF360C",
+        "fundo_btn_sel": "#FFB74D",
+        "hover_btn_sel": "#FFA726",
+        "texto_btn_sel": "#E65100",
+        "borda_btn_sel": "#FF7043",
+        "fundo_btn_deszip": "#FFD180",
+        "hover_btn_deszip": "#FFAB40",
+        "texto_btn_deszip": "#BF360C",
+        "borda_btn_deszip": "#FF6E40"
+      },
+      "descricao": "Tema claro inspirado em tons de laranja do pôr do sol"
+    },
+    "aqua_fresh": {
+      "nome": "Aqua Fresh",
+      "tipo": "claro",
+      "cores": {
+        "fundo_janela": "#E0F7FA",
+        "fundo_frame": "#B2EBF2",
+        "borda_frame": "#00BCD4",
+        "texto_label": "#006064",
+        "fundo_btn_sel": "#4DD0E1",
+        "hover_btn_sel": "#26C6DA",
+        "texto_btn_sel": "#004D40",
+        "borda_btn_sel": "#00ACC1",
+        "fundo_btn_deszip": "#80DEEA",
+        "hover_btn_deszip": "#4DD0E1",
+        "texto_btn_deszip": "#006064",
+        "borda_btn_deszip": "#0097A7"
+      },
+      "descricao": "Tema claro refrescante com tons de azul água"
+    },
+    "lavender_dream": {
+      "nome": "Lavender Dream",
+      "tipo": "claro",
+      "cores": {
+        "fundo_janela": "#F3E5F5",
+        "fundo_frame": "#E1BEE7",
+        "borda_frame": "#8E24AA",
+        "texto_label": "#4A148C",
+        "fundo_btn_sel": "#CE93D8",
+        "hover_btn_sel": "#BA68C8",
+        "texto_btn_sel": "#6A1B9A",
+        "borda_btn_sel": "#7C43BD",
+        "fundo_btn_deszip": "#E1BEE7",
+        "hover_btn_deszip": "#CE93D8",
+        "texto_btn_deszip": "#4A148C",
+        "borda_btn_deszip": "#8E24AA"
+      },
+      "descricao": "Tema claro suave com tons de lavanda"
+    },
+    "carbon_night": {
+      "nome": "Carbon Night",
+      "tipo": "escuro",
+      "cores": {
+        "fundo_janela": "#181818",
+        "fundo_frame": "#232323",
+        "borda_frame": "#383838",
+        "texto_label": "#CCCCCC",
+        "fundo_btn_sel": "#2C2C2C",
+        "hover_btn_sel": "#3A3A3A",
+        "texto_btn_sel": "#F5F5F5",
+        "borda_btn_sel": "#505050",
+        "fundo_btn_deszip": "#232323",
+        "hover_btn_deszip": "#383838",
+        "texto_btn_deszip": "#E0E0E0",
+        "borda_btn_deszip": "#606060"
+      },
+      "descricao": "Tema escuro inspirado em carbono e grafite"
+    },
+    "forest_moss": {
+      "nome": "Forest Moss",
+      "tipo": "escuro",
+      "cores": {
+        "fundo_janela": "#1B2B1B",
+        "fundo_frame": "#233423",
+        "borda_frame": "#3A5A3A",
+        "texto_label": "#D0FFD0",
+        "fundo_btn_sel": "#2E4D2E",
+        "hover_btn_sel": "#3E6E3E",
+        "texto_btn_sel": "#B2FFB2",
+        "borda_btn_sel": "#4A7A4A",
+        "fundo_btn_deszip": "#355A35",
+        "hover_btn_deszip": "#4A7A4A",
+        "texto_btn_deszip": "#E0FFE0",
+        "borda_btn_deszip": "#5A9A5A"
+      },
+      "descricao": "Tema escuro com tons de verde musgo e floresta"
+    }
+  },
+  "metadata": {
+    "autor": "Seu Nome",
+    "versao": "2.1",
+    "data_criacao": "2025-06-29",
+    "total_temas": 10
+  }
+}

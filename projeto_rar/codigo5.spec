@@ -5,7 +5,7 @@ a = Analysis(
     ['codigo5.py'],
     pathex=[],
     binaries=[],
-    datas=[('icon.ico', '.')],
+    datas=[('icon.ico', '.'), ('temas', 'temas')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

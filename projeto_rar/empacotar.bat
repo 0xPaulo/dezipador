@@ -2,8 +2,8 @@
 REM Ativa o ambiente virtual
 call env\Scripts\activate.bat
 
-REM Empacota o app com PyInstaller
-pyinstaller --add-data "icon.ico;." --onefile --windowed --icon=icon.ico --version-file=version.txt codigo5.py
+REM Empacota o app com PyInstaller incluindo a pasta temas
+pyinstaller --add-data "icon.ico;." --add-data "temas;temas" --onefile --windowed --icon=icon.ico --version-file=version.txt codigo5.py
 
 REM Espera uma tecla para encerrar
 echo.
